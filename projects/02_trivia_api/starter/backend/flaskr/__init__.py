@@ -1,12 +1,14 @@
 import os
 from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
 from flask_cors import CORS
 import random
 
-from models import setup_db, Question, Category
+from models import setup_db, Question, Category, db
 
 QUESTIONS_PER_PAGE = 10
+
 
 def create_app(test_config=None):
     # create and configure the app
@@ -178,7 +180,5 @@ def create_app(test_config=None):
             'error': 500,
             'message': 'Sever Error'
         }), 500
-  
-    return app
 
-    
+    return app
