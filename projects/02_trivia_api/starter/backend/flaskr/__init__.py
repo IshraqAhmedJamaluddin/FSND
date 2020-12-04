@@ -127,14 +127,6 @@ def create_app(test_config=None):
 
         return jsonify(result)
 
-    @app.route("/categories/<int:category_id>/questions", methods=['GET'])
-    def get_question_per_category(category_id):
-        result = question_get_return(1, category_id=category_id)
-        if not result:
-            abort(404)
-
-        return jsonify(result)
-
     @app.route('/quizzes', methods=['POST'])
     def quizes():
         data = request.json
@@ -152,6 +144,14 @@ def create_app(test_config=None):
         if question:
             question = dict(question[0].format())
         return jsonify({'question': question})
+
+    @app.route("/categories/<int:category_id>/questions", methods=['GET'])
+    def get_question_per_category(category_id):
+        result = question_get_return(1, category_id=category_id)
+        if not result:
+            abort(404)
+
+        return jsonify(result)
 
     @app.errorhandler(404)
     def not_found(error):
